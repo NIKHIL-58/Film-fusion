@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Recommendations System</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="title-text">
+        <div class="title login">Sign In</div>
+        <div class="title signup">Sign up</div>
+      </div>
+      <div class="form-container">
+        <div class="slide-controls">
+          <input type="radio" name="slide" id="login" checked />
+          <input type="radio" name="slide" id="signup" />
+          <label for="login" class="slide login">Sign In</label>
+          <label for="signup" class="slide signup">Sign up</label>
+          <div class="slider-tab"></div>
+        </div>
+        <div class="form-inner">
+          <form action="#" class="login">
+            <div class="field">
+              <label for="email">Email</label>
+              <input
+                type="text"
+                id="login-email"
+                placeholder="Email Address"
+                required
+              />
+            </div>
+            <div class="field password-container">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="login-password"
+                placeholder="Password"
+                required
+              />
+              <i class="fa fa-eye" id="toggle-login-password"></i>
+            </div>
+            <div class="field btn">
+              <div class="btn-layer"></div>
+              <input type="submit" value="Sign In" />
+            </div>
+            <div class="signup-link">
+              Not a member? <a href="#">Sign up now</a>
+            </div>
+            <h2>OR</h2>
+            <div class="field forgot-password-link">
+              <a href="forgot-password" id="forgot-password"
+                >Forgot Password?</a
+              >
+            </div>
+          </form>
+          <form action="#" class="signup">
+            <div class="field">
+              <label for="name">Full Name</label>
+              <input
+                type="text"
+                id="signup-name"
+                placeholder="Full Name"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="Mobile">Mobile</label>
+              <input
+                type="text"
+                id="signup-mobile"
+                placeholder="Mobile"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input
+                type="text"
+                id="signup-email"
+                placeholder="Email Address"
+                required
+              />
+            </div>
+            <div class="field password-container">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="signup-password"
+                placeholder="Password"
+                required
+              />
+              <i class="fa fa-eye" id="toggle-signup-password"></i>
+            </div>
+            <div class="field password-container">
+              <label for="confirm-password">Confirm Password</label>
+              <input
+                type="password"
+                id="signup-confirm-password"
+                placeholder="Confirm Password"
+                required
+              />
+              <i class="fa fa-eye" id="toggle-signup-confirm-password"></i>
+            </div>
+            <div class="field btn">
+              <div class="btn-layer"></div>
+              <input type="submit" value="Sign up" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+  </body>
+</html>

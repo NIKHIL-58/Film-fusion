@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Details</title>
+    <style>
+      body {
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        background-image: url("/static/images/bg.jpg");
+        background-size: cover;
+        background-position: center;
+        color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50%;
+      }
+
+      @keyframes backgroundAnimation {
+        0% {
+          background-position: 0% 0%;
+        }
+
+        100% {
+          background-position: 50% 50%;
+        }
+      }
+
+      .movie-container {
+        width: 100%;
+        margin: 0px auto;
+        background: rgba(206, 77, 77, 0);
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .back-button {
+        display: inline-block;
+        margin-bottom: 20px;
+        padding: 10px 20px;
+        background-color: #1e2a38;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 8px;
+        margin-left: 480px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .back-button:hover {
+        background-color: #3e4b59;
+      }
+
+      .movie-poster {
+        max-width: 400px;
+        height: 500px;
+        float: left;
+        margin-right: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .movie-details {
+        overflow: hidden;
+      }
+
+      h1 {
+        margin-top: 0;
+        color: #ffcc00;
+      }
+
+      .movie-info {
+        margin-bottom: 15px;
+        color: #ffffff;
+      }
+
+      .movie-info label {
+        font-weight: bold;
+        color: #ffffffb6;
+      }
+
+      iframe {
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+        width: 100%;
+        max-width: 560px;
+        height: 315px;
+      }
+
+      iframe:hover {
+        transform: scale(1.05);
+      }
+
+      .animated-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("path/to/your/background-image.jpg") no-repeat center
+          center fixed;
+        background-size: cover;
+        opacity: 0.2;
+        z-index: -1;
+        animation: fadeInOut 15s infinite;
+      }
+
+      @keyframes fadeInOut {
+        0% {
+          opacity: 0.2;
+        }
+
+        50% {
+          opacity: 0.6;
+        }
+
+        100% {
+          opacity: 0.2;
+        }
+      }
+
+      .favorite-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        /* Adjust size */
+        height: 35px;
+        /* Adjust size */
+        background-color: #ff0606;
+        color: white;
+        margin-left: 10px;
+        cursor: pointer;
+        clip-path: polygon(
+          50% 0%,
+          61% 35%,
+          98% 35%,
+          78% 58%,
+          82% 100%,
+          50% 85%,
+          18% 100%,
+          22% 58%,
+          2% 35%,
+          39% 35%
+        );
+        transition: background-color 0.3s ease;
+      }
+
+      .favorite-icon .heart-icon {
+        display: none;
+        /* Optional: Hide the heart-icon image */
+      }
+
+      .favorite-icon.favorited {
+        background-color: #ff0000;
+      }
+
+      .favorite-icon:hover {
+        background-color: #e60000;
+        /* Color change on hover */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="animated-background"></div>
+    <div id="movie-container" class="movie-container">
+      <button class="back-button" onclick="goBack()">← Back</button>
+      <!-- Movie details will be inserted here by JavaScript -->
+    </div>
+
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+
+      // Function to display notification messages
+      function showNotification(message, type) {
+        const notification = document.createElement("div");
+        notification.className = `notification ${type}`;
+        notification.innerText = message;
+        notification.style.position = "fixed";
+        notification.style.top = "20px";
+        notification.style.right = "20px";
+        notification.style.padding = "10px 20px";
+        notification.style.borderRadius = "5px";
+        notification.style.zIndex = "1000";
+        notification.style.backgroundColor =
+          type === "success" ? "green" : "red";
+        notification.style.color = "white";
+        notification.style.fontSize = "16px";
+        notification.style.boxShadow = "0 2px 10px rgba(0, 0, 0, 0.1)";
+
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+          notification.remove();
+        }, 3000);
+      }
+
+      // Fetch the current IMDb ID from the URL
+      const imdbID = window.location.pathname.split("/").pop();
+
+      fetch(`http://127.0.0.1:5000/api/movie_details/${imdbID}`)
+        .then((response) => response.json())
+        .then((movie) => {
+          if (movie.error) {
+            document.getElementById("movie-container").innerHTML =
+              "<p>Movie not found.</p>";
+          } else {
+            const movieContainer = document.getElementById("movie-container");
+            const videoId = movie.trailer_url.split("v=")[1].split("&")[0];
+            const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+
+            movieContainer.innerHTML += `
+                        <img class="movie-poster" src="${movie.Poster}" alt="${movie.Title}">
+                        <div class="movie-details">
+                            <h1>${movie.Title} (${movie.Year})</h1>
+                            <p class="movie-info"><label>Genre:</label> ${movie.Genre}</p>
+                            <p class="movie-info"><label>Director:</label> ${movie.Director}</p>
+                            <p class="movie-info"><label>Writer:</label> ${movie.Writer}</p>
+                            <p class="movie-info"><label>Actors:</label> ${movie.Actors}</p>
+                            <p class="movie-info"><label>Plot:</label> ${movie.Plot}</p>
+                            <p class="movie-info"><label>Language:</label> ${movie.Language}</p>
+                            <p class="movie-info"><label>Country:</label> ${movie.Country}</p>
+                            <p class="movie-info"><label>Awards:</label> ${movie.Awards}</p>
+                            <p class="movie-info"><label>Released:</label> ${movie.Released}</p>
+                            <p class="movie-info"><label>Runtime: </label> ${movie.Runtime}</p>
+                            <p class="movie-info"><label>IMDB Rating:</label> ${movie.imdbRating} 
+                                <div id="favorite-icon" class="favorite-icon">
+                                    <div class="heart-icon"></div>
+                                </div>
+                            </p>
+                            <h2>Watch Trailer</h2>
+                            <iframe src="${embedUrl}" allowfullscreen></iframe>
+                        </div>
+                    `;
+
+            const favoriteIcon = document.getElementById("favorite-icon");
+
+            // Check if the movie is already favorited
+            fetch(`http://127.0.0.1:5000/api/check_favorite/${imdbID}`)
+              .then((response) => response.json())
+              .then((data) => {
+                if (data.isFavorited) {
+                  favoriteIcon.classList.add("favorited");
+                }
+              });
+
+            // Add click event to the favorite icon
+            favoriteIcon.addEventListener("click", () => {
+              if (favoriteIcon.classList.contains("favorited")) {
+                removeFavorite(imdbID);
+              } else {
+                addFavorite(imdbID);
+              }
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching movie details:", error);
+        });
+
+      function addFavorite(imdbID) {
+        fetch(`http://127.0.0.1:5000/api/add_favorite`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ imdbID }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(() => {
+            document.getElementById("favorite-icon").classList.add("favorited");
+            showNotification("Movie added to favorites!", "success");
+            updateFavoritesSection();
+          })
+          .catch((error) => {
+            console.error("Error adding to favorites:", error);
+            showNotification("Failed to add movie to favorites.", "error");
+          });
+      }
+
+      function removeFavorite(imdbID) {
+        fetch(`http://127.0.0.1:5000/api/remove_favorite`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ imdbID }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(() => {
+            document
+              .getElementById("favorite-icon")
+              .classList.remove("favorited");
+            showNotification("Movie removed from favorites!", "success");
+            updateFavoritesSection();
+          })
+          .catch((error) => {
+            console.error("Error removing from favorites:", error);
+            showNotification("Failed to remove movie from favorites.", "error");
+          });
+      }
+
+      function updateFavoritesSection() {
+        fetch(`http://127.0.0.1:5000/api/get_favorites`)
+          .then((response) => response.json())
+          .then((favorites) => {
+            const favoritesMoviesDiv =
+              document.getElementById("favoritesMovies");
+            favoritesMoviesDiv.innerHTML = "";
+
+            if (favorites.length > 0) {
+              favorites.forEach((movie) => {
+                favoritesMoviesDiv.innerHTML += `
+                                <div class="favorite-movie">
+                                    <img src="${movie.Poster}" alt="${movie.Title}" class="favorite-movie-poster">
+                                    <h3>${movie.Title} (${movie.Year})</h3>
+                                </div>
+                            `;
+              });
+            } else {
+              favoritesMoviesDiv.innerHTML =
+                "<p>No favorite movies added yet.</p>";
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching favorite movies:", error);
+          });
+      }
+
+      // Load favorite movies when the page loads
+      updateFavoritesSection();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Recommendation Website</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- Navigation Menu -->
+    <nav id="navbar">
+      <div class="left-nav">
+        <!-- Logo -->
+        <img
+          src="{{ url_for('static', filename='images/logo-removebg-preview.png') }}"
+          alt="FILM FUSION"
+          style="width: 50px; height: auto"
+        />
+
+        <a href="#home" class="nav-link" data-target="home"
+          ><i class="fas fa-home"></i
+        ></a>
+        <a href="#account" class="nav-link" data-target="account"
+          ><i class="fas fa-user"></i> Account</a
+        >
+        <a href="#about" class="nav-link" data-target="about"
+          ><i class="fas fa-info-circle"></i> About</a
+        >
+        <a href="#contact" class="nav-link" data-target="contact"
+          ><i class="fas fa-envelope"></i> Contact</a
+        >
+      </div>
+      <div class="right-nav">
+        <button id="topRatedButton" class="button">Top Rated</button>
+        <button id="logoutButton" class="button">Logout</button>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div id="main-content">
+      <div id="message" style="display: none; color: rgb(29, 85, 250)"></div>
+      <div class="image">
+        <h1>Welcome to FILM FUSION</h1>
+        <div class="input-container-search">
+          <div style="display: flex; justify-content: space-between">
+            <div>
+              <div style="display: flex; justify-content: start">
+                <label for="searchInput">Movie Title</label>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  id="searchInput"
+                  placeholder="Search for a movie or genre…"
+                />
+                <button id="searchButton">Search</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="page-loader" class="page-loader">
+        <div class="spinner">
+          <div class="play-icon"></div>
+        </div>
+      </div>
+
+      <!-- RECENTLY WATCHED MOVIES SECTION -->
+      <div id="recently-watched-section" class="section">
+        <div class="container">
+          <div class="section-header">Recently Searched Movie list...</div>
+          <div id="recently-watched-movies" class="horizontal-scroll">
+            <!-- Movies will be dynamically inserted here -->
+          </div>
+        </div>
+      </div>
+      <!-- END RECENTLY WATCHED MOVIES SECTION -->
+
+      <nav class="menu-bar">
+        <h4 class="recommended-movie">Recommended Default Movie...</h4>
+        <div class="menu-item">
+          <a href="#" id="view All">View All</a>
+        </div>
+      </nav>
+
+      <div class="home-content">
+        <div id="results" class="results"></div>
+        <div id="loading" class="loading-spinner" style="display: none"></div>
+      </div>
+
+      <h2>My Favorite Movies</h2>
+      <div id="favoritesMovies" class="favorites-movies"></div>
+
+      <div id="recommendedTrailers" class="trailers-section">
+        <h2>Recommended Trailers</h2>
+        <div id="recommendedTrailersContainer"></div>
+      </div>
+
+      <div id="trailerModal" class="modal">
+        <div class="modal-content">
+          <div id="trailerContainer"></div>
+        </div>
+      </div>
+
+      <h2>Last Watched Trailers...</h2>
+      <section id="lastWatchedTrailers">
+        {% for trailer in trailers %}
+        <article class="trailer-item">
+          <h3>{{ trailer.movie_title }}</h3>
+          <a
+            href="https://www.youtube.com/watch?v={{ trailer.trailer_url }}"
+            target="_blank"
+          >
+            Watch Trailer
+          </a>
+          <iframe
+            src="{{ trailer.trailer_url }}"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen
+          ></iframe>
+        </article>
+        {% endfor %}
+      </section>
+    </div>
+
+    <!-- Profile Section -->
+    <div id="userProfile" class="profile-section">
+      <div class="profile-header">
+        <img
+          id="userPhoto"
+          src="{ url_for('uploaded_file', filename='default-profile-image.png') }"
+          alt="User Photo"
+        />
+        <i id="editIcon" class="fas fa-edit edit-icon"></i>
+        <!-- Edit icon -->
+        <div class="profile-body">
+          <form
+            id="uploadForm"
+            enctype="multipart/form-data"
+            action="/api/upload-photo"
+            method="POST"
+            class="hidden"
+          >
+            <div class="form-group">
+              <input
+                type="file"
+                id="fileInput"
+                name="profile_picture"
+                accept="image/*"
+              />
+              <button type="submit">Upload Photo</button>
+            </div>
+          </form>
+        </div>
+        <div id="profileDetails">
+          <h2>Personal Details</h2>
+          <label for="userNameInput">Name</label>
+          <p id="userName" class="editable" contenteditable="false">Name</p>
+
+          <label for="userEmailInput">Email</label>
+          <p id="userEmail" class="editable" contenteditable="false">Email</p>
+
+          <label for="userMobileInput">Mobile</label>
+          <p id="userMobile" class="editable" contenteditable="false">Mobile</p>
+
+          <div class="social-media">
+            <h5>Social Media</h5>
+            <div class="icons">
+              <a href="https://www.google.com" target="_blank"
+                ><i class="fab fa-google"></i
+              ></a>
+              <a href="https://www.facebook.com" target="_blank"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a href="https://www.x.com" target="_blank"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a href="https://www.instagram.com" target="_blank"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="https://www.whatsapp.com" target="_blank"
+                ><i class="fa-brands fa-whatsapp"></i
+              ></a>
+            </div>
+          </div>
+          <button id="saveButton" class="hidden">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- About Section -->
+    <div id="aboutSection" class="about-section hidden">
+      <h2>About This Site</h2>
+      <p>
+        Welcome to our state-of-the-art Movie Recommendation System, designed to
+        enhance your viewing experience with personalized movie suggestions.
+        Utilizing advanced algorithms and the latest in machine learning
+        technology, our system analyzes your viewing history to provide tailored
+        recommendations.
+      </p>
+
+      <h3>Key Features</h3>
+      <ul>
+        <li>
+          <strong>Personalized Recommendations:</strong> Our system learns from
+          your movie choices and suggests titles that match your tastes.
+        </li>
+        <li>
+          <strong>Comprehensive Database:</strong> Access a vast collection of
+          movies from various genres, directors, and actors.
+        </li>
+        <li>
+          <strong>Real-time Updates:</strong> Stay informed with the latest
+          information on new releases and top-rated movies.
+        </li>
+        <li>
+          <strong>User-friendly Interface:</strong> Enjoy a seamless browsing
+          experience with an intuitive and responsive design.
+        </li>
+        <li>
+          <strong>Detailed Movie Information:</strong> Watch trailers, read
+          synopses, and check IMDb ratings all in one place.
+        </li>
+        <li>
+          <strong>Secure and Private:</strong> We prioritize your privacy and
+          ensure your data is secure.
+        </li>
+      </ul>
+
+      <h3>How It Works</h3>
+      <p>
+        Our recommendation system employs a combination of collaborative
+        filtering and content-based filtering techniques. Collaborative
+        filtering analyzes your viewing habits and compares them with those of
+        other users to find common patterns. Content-based filtering focuses on
+        the attributes of the movies you have watched and recommends similar
+        titles.
+      </p>
+
+      <h3>Join Us</h3>
+      <p class="join-us">
+        Sign up today and start discovering movies you'll love. Whether you're a
+        fan of action-packed blockbusters heartwarming dramas or
+        thought-provoking documentaries our Movie Recommendation System has
+        something for everyone.
+      </p>
+    </div>
+    <!-- Contact Section -->
+    <div id="contactSection" class="content-section hidden">
+      <div class="contact-container">
+        <!-- Left Side -->
+        <div class="contact-info">
+          <h2>Contact Us</h2>
+          <p>
+            We'd love to hear from you! Whether you have a question about
+            features, pricing, or anything else, our team is ready to answer all
+            your questions.
+          </p>
+
+          <div class="contact-item">
+            <i class="fas fa-mobile-alt"></i>
+            <p><a href="tel:+91 7234567890">+91 7234 567 890</a></p>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <p>
+              <a href="mailto:nikhildubey183@gmail.com"
+                >nikhildubey183@gmail.com</a
+              >
+            </p>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <p>123 Movie Lane, Bollywood, India 90210</p>
+          </div>
+
+          <div class="social-media">
+            <h5>Social Media</h5>
+            <div class="icons">
+              <a href="https://www.google.com" target="_blank"
+                ><i class="fab fa-google"></i
+              ></a>
+              <a href="https://www.facebook.com" target="_blank"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a href="https://www.x.com" target="_blank"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a href="https://www.instagram.com" target="_blank"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="https://www.whatsapp.com" target="_blank"
+                ><i class="fa-brands fa-whatsapp"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <hr class="divider" />
+
+        <!-- Right Side -->
+        <div class="contact-form">
+          <h3>Send Us a Feedback</h3>
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                required
+              ></textarea>
+            </div>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+  </body>
+</html>

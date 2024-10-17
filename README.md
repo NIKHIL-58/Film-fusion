@@ -12,9 +12,9 @@ This is a Flask-based web application for recommending movies, managing user pro
 
 ## ScreenShot
 
-![WhatsApp Image 2024-10-17 at 15 57 08_c18164f2](https://github.com/user-attachments/assets/25c9e7b3-3d64-4932-a73b-9622f8b51df9)
+1---> ![WhatsApp Image 2024-10-17 at 15 57 08_c18164f2](https://github.com/user-attachments/assets/25c9e7b3-3d64-4932-a73b-9622f8b51df9)
 
-![WhatsApp Image 2024-10-17 at 15 57 08_955c5782](https://github.com/user-attachments/assets/7daf4b5a-d762-452e-a02f-f6ab6d6497b2)
+2---> ![WhatsApp Image 2024-10-17 at 15 57 08_955c5782](https://github.com/user-attachments/assets/7daf4b5a-d762-452e-a02f-f6ab6d6497b2)
 
 ![WhatsApp Image 2024-10-17 at 16 12 28_054fcec0](https://github.com/user-attachments/assets/48016d28-cff9-4d1a-a17a-36c8d265cbed)
 

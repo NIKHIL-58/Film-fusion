@@ -1,38 +1,159 @@
-# Film-fusion
+# 🎬 Movie Recommendation System  
 
-This is a Flask-based web application for recommending movies, managing user profiles, add favorites movie list and exploring movie trailers.
+A **web application** built using **Flask**, **MongoDB**, **HTML**, **CSS**, and **JavaScript**. The app allows users to explore, search, and manage movies, watch trailers, store their favorites, and more.
 
-## Features
-- User authentication (Signup, Login, Logout)
-- Movie search using the OMDB API
-- YouTube trailer search and saving watched trailers
-- Add favorites movie list and also remove in the list 
-- User profile management
-- JWT-based session(token) management
+---
 
-## ScreenShot
+## 🚀 Features  
+- **User Authentication**:  
+  - Signup/Login  
+  - Password reset with OTP-based verification  
+  - JWT-based session management  
 
-1---> ![WhatsApp Image 2024-10-17 at 15 57 08_c18164f2](https://github.com/user-attachments/assets/25c9e7b3-3d64-4932-a73b-9622f8b51df9)
+- **Movie Search & Recommendations**  
+  - Search for movies by name  
+  - Get details from OMDB API  
+  - View YouTube trailers  
 
-2---> ![WhatsApp Image 2024-10-17 at 15 57 08_955c5782](https://github.com/user-attachments/assets/7daf4b5a-d762-452e-a02f-f6ab6d6497b2)
+- **Favorites Management**  
+  - Add/remove movies to favorites  
+  - Display favorite movies in grid view  
 
-3---> ![WhatsApp Image 2024-10-17 at 16 12 28_054fcec0](https://github.com/user-attachments/assets/48016d28-cff9-4d1a-a17a-36c8d265cbed)
+- **Recently Watched Section**  
+  - List of movies the user has interacted with  
 
-4---> ![WhatsApp Image 2024-10-17 at 16 14 17_55666df8](https://github.com/user-attachments/assets/2bd46a6d-a83b-40e8-9f95-475c6cecd932)
+- **Profile Management**  
+  - Update user profiles  
+  - Upload profile pictures  
 
-5---> ![WhatsApp Image 2024-10-17 at 16 15 23_0256beb0](https://github.com/user-attachments/assets/3947cbd0-c640-494d-ad6c-b79234219b91)
+---
 
-6---> ![WhatsApp Image 2024-10-17 at 15 57 08_8968083d](https://github.com/user-attachments/assets/fb779e81-5685-4c4e-922d-c0a4ece4d2bd)
+## 📁 Project Structure  
 
-7---> ![WhatsApp Image 2024-10-17 at 15 57 08_5d3afc27](https://github.com/user-attachments/assets/f6aeafb9-bccb-4642-8041-16e03b0d88de)
+```plaintext
+├── app/                 # Flask application
+│   ├── templates/       # HTML templates
+│   ├── static/          # CSS, JavaScript, and other static files
+│   ├── config.py        # Configuration settings  
+│   ├── utils.py         # Utility functions  
+│   ├── routes/          # Routes for various features  
+│   │   ├── login.py     
+│   │   ├── signup.py   
+│   │   ├── movies_search.py  
+│   │   ├── reset_password.py  
+│   │   └── favorites_movie.py  
+├── uploads/             # User profile uploads  
+├── requirements.txt     # Python dependencies  
+├── README.md            # Documentation  
+└── run.py               # Application entry point  
+```
 
-8---> ![WhatsApp Image 2024-10-17 at 16 19 51_2296506a](https://github.com/user-attachments/assets/66de882c-be85-4efe-9755-7983156fe570)
+---
 
-9---> ![WhatsApp Image 2024-10-17 at 15 57 08_4d246852](https://github.com/user-attachments/assets/79c0f902-8df6-4c5f-b156-dfc6d18c3ee9)
+## ⚙️ Installation  
 
-10---> ![WhatsApp Image 2024-10-17 at 15 57 08_9b0399a4](https://github.com/user-attachments/assets/e7f7e166-a595-4b33-b498-078f5a776a5d)
+1. **Clone the repository**  
+   ```bash
+   git clone https://github.com/your-username/movie-recommendation-system.git
+   cd movie-recommendation-system
+   ```
+
+2. **Set up a virtual environment**  
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. **Install the required dependencies**  
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Set up MongoDB**  
+   - Install and run MongoDB locally or use **MongoDB Atlas**.  
+   - Create a database named `MovieDB` and a collection for users and movie data.
+
+5. **Configure environment variables**  
+   Update `app/config.py` with your **OMDB API** and **YouTube API keys**.
+
+6. **Run the application**  
+   ```bash
+   python run.py
+   ```
+   The app will be available at: [http://localhost:5000](http://localhost:5000)
+
+---
+
+## 🛠️ API Endpoints  
+
+- **User Authentication**  
+  - `/signup` (POST) – Register a new user  
+  - `/login` (POST) – User login  
+  - `/reset-password` (POST) – Reset password using OTP  
+
+- **Movie Management**  
+  - `/api/movie/search` (POST) – Search for a movie  
+  - `/api/movie_details/<imdbID>` (GET) – Get movie details  
+
+- **Favorites Management**  
+  - `/api/favorites` (GET) – Get all favorite movies  
+  - `/api/favorites/<imdbID>` (POST) – Add to favorites  
+
+---
+
+## 📋 Technologies Used  
+
+- **Backend**: Flask, PyMongo, JWT  
+- **Database**: MongoDB  
+- **Frontend**: HTML, CSS, JavaScript  
+- **APIs**: OMDB API, YouTube Data API  
+
+---
+
+## 🌐 Demo  
+
+Link: [https://your-app-demo-link.com](https://your-app-demo-link.com)
+
+---
+
+## Screenshots
+
+1. ![Dashboard](https://github.com/user-attachments/assets/25c9e7b3-3d64-4932-a73b-9622f8b51df9)
+2. ![Search Movies](https://github.com/user-attachments/assets/7daf4b5a-d762-452e-a02f-f6ab6d6497b2)
+3. ![Movie Details](https://github.com/user-attachments/assets/48016d28-cff9-4d1a-a17a-36c8d265cbed)
+4. ![Favorites](https://github.com/user-attachments/assets/2bd46a6d-a83b-40e8-9f95-475c6cecd932)
+5. ![Profile Page](https://github.com/user-attachments/assets/3947cbd0-c640-494d-ad6c-b79234219b91)
+6. ![Trailer Integration](https://github.com/user-attachments/assets/fb779e81-5685-4c4e-922d-c0a4ece4d2bd)
+7. ![Watch Trailer](https://github.com/user-attachments/assets/f6aeafb9-bccb-4642-8041-16e03b0d88de)
+8. ![User Settings](https://github.com/user-attachments/assets/66de882c-be85-4efe-9755-7983156fe570)
+9. ![Logout](https://github.com/user-attachments/assets/79c0f902-8df6-4c5f-b156-dfc6d18c3ee9)
+10. ![JWT Session Expiry](https://github.com/user-attachments/assets/e7f7e166-a595-4b33-b498-078f5a776a5d)
+
+---
 
 
-## Setup
+## 🛡️ Security  
 
-1. Clone the repository:
+- Passwords are hashed using `generate_password_hash`.  
+- JWT is used for session management.  
+- Secure file uploads using `secure_filename`.  
+
+---
+
+## 📜 License  
+
+This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙌 Acknowledgments  
+
+- [OMDB API](http://www.omdbapi.com/) for movie data  
+- [YouTube Data API](https://developers.google.com/youtube/) for fetching trailers  
+
+---
+
+## 📧 Contact  
+
+For any inquiries or support, contact me at **nikhildubey183@gmail.com**.  
+

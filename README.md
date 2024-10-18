@@ -118,7 +118,7 @@ Link: [https://drive.google.com/file/d/18-oYERGVeMPCISavc5Oqy7WiXXWns17I/view?us
 
 ---
 
-## Screenshots
+## 📸 Screenshots
 
 1. ![Dashboard](https://github.com/user-attachments/assets/25c9e7b3-3d64-4932-a73b-9622f8b51df9)
 2. ![Search Movies](https://github.com/user-attachments/assets/7daf4b5a-d762-452e-a02f-f6ab6d6497b2)

@@ -1,4 +1,4 @@
-# 🎬 Movie Recommendation System  
+# 🎬 Movie Recommendation System (Film-fusion)
 
 A **web application** built using **Flask**, **MongoDB**, **HTML**, **CSS**, and **JavaScript**. The app allows users to explore, search, and manage movies, watch trailers, store their favorites, and more.
 

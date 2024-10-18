@@ -112,18 +112,8 @@ A **web application** built using **Flask**, **MongoDB**, **HTML**, **CSS**, and
 
 ## 🌐 Demo  
 
-
-
-
-
-https://github.com/user-attachments/assets/10ccedd6-05dc-480e-8562-e122d5a71c68
-
-
-
-
 Link: [https://drive.google.com/file/d/18-oYERGVeMPCISavc5Oqy7WiXXWns17I/view?usp=sharing](https://drive.google.com/file/d/18-oYERGVeMPCISavc5Oqy7WiXXWns17I/view?usp=sharing)
-
-   Link: [https://drive.google.com/file/d/1oDcRZhvMNxk9K7TBFchf7LP0ENWiZFgL/view?usp=sharing](https://drive.google.com/file/d/1oDcRZhvMNxk9K7TBFchf7LP0ENWiZFgL/view?usp=sharing)
+Link: [https://drive.google.com/file/d/1oDcRZhvMNxk9K7TBFchf7LP0ENWiZFgL/view?usp=sharing](https://drive.google.com/file/d/1oDcRZhvMNxk9K7TBFchf7LP0ENWiZFgL/view?usp=sharing)
 
 ---
 

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-image: url('/static/images/cinema.avif');
+            background-size: cover;
+            background-position: center;
+            color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .movie-details-container {
+            background-color: rgba(0, 0, 0, 0);
+            padding: 50px;
+            border-radius: 12px;
+            width: 100%;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease-in-out;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        .movie-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffcc00;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            width: 100%;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #movie-poster {
+            max-width: 50%;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            margin-top: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        #movie-poster:hover {
+            transform: scale(1.05);
+        }
+
+        .movie-info {
+            margin-left: 50px;
+            margin-top: 50px;
+            flex: 1;
+        }
+
+        .movie-info p {
+            margin: 10px 0;
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #000000;
+        }
+
+        #trailer-modal {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 40px;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        #trailer-container {
+            width: 80%;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+        }
+
+        .trailerButton {
+            background-color: #28a745;
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .trailerButton:hover {
+            background-color: #218838;
+            transform: translateY(-3px);
+        }
+
+        #close-modal {
+            position: absolute;
+            top: 30px;
+            right: 50px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        #close-modal:hover {
+            background-color: #d32f2f;
+        }
+
+        .back-link {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #007BFF;
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .back-link:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="movie-details-container">
+        <h1 class="movie-title" id="movie-title">Movie Title</h1>
+        <img id="movie-poster" src="movie_poster.jpg" alt="Movie Poster"> <!-- Add your movie poster image source -->
+        <div class="movie-info">
+            <p><strong>Year:</strong> <span id="movie-year">2024</span></p>
+            <p><strong>Genre:</strong> <span id="movie-genre">Action, Adventure</span></p>
+            <p><strong>Plot:</strong> <span id="movie-plot">An epic journey...</span></p>
+            <button class="trailerButton" id="trailer-button">Watch Trailer</button>
+        </div>
+
+        <!-- Trailer modal and container -->
+        <div id="trailer-modal">
+            <div id="trailer-container">
+                <button id="close-modal">Close</button>
+            </div>
+        </div>
+
+        <a href="/home" class="back-link">Back to Home</a>
+    </div>
+</body>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const imdbID = urlParams.get('imdbID');
+
+        if (imdbID) {
+            fetch(`http://127.0.0.1:5000/api/movie_detail.html?imdbID=${imdbID}`)
+                .then(response => response.json())
+                .then(movie => {
+                    if (movie.error) {
+                        alert(movie.error);
+                    } else {
+                        document.getElementById('movie-title').textContent = movie.Title;
+                        document.getElementById('movie-poster').src = movie.Poster;
+                        document.getElementById('movie-year').textContent = movie.Year;
+                        document.getElementById('movie-genre').textContent = movie.Genre;
+                        document.getElementById('movie-plot').textContent = movie.Plot;
+
+                        // Handle trailer functionality
+                        const trailerButton = document.getElementById('trailer-button');
+                        trailerButton.addEventListener('click', function () {
+                            fetchTrailer(movie.Title);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching movie details:', error);
+                    alert('Failed to fetch movie details');
+                });
+        } else {
+            alert('No imdbID provided in the query string');
+        }
+
+        function fetchTrailer(movieTitle) {
+            const apiKey = "AIzaSyAHX3vfeBZ51GkPTHV6TWWK4y4NIoPwOxY";
+            const searchQuery = encodeURIComponent(`${movieTitle} trailer`);
+            const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${searchQuery}&type=video&key=${apiKey}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.items && data.items.length > 0) {
+                        const videoId = data.items[0].id.videoId;
+                        const trailerUrl = `https://www.youtube.com/embed/${videoId}`;
+                        showTrailer(trailerUrl);
+                        saveTrailerToDb(movieTitle, trailerUrl);
+                    } else {
+                        alert('No trailer found for this movie.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching trailer:', error);
+                    alert('Failed to load trailer.');
+                });
+        }
+
+        function showTrailer(url) {
+            const trailerContainer = document.getElementById('trailer-container');
+            const trailerModal = document.getElementById('trailer-modal');
+
+            if (trailerContainer && trailerModal) {
+                trailerContainer.innerHTML += `<iframe width="100%" height="350" src="${url}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+                trailerModal.style.display = 'flex';
+
+                // Close button functionality
+                const closeModalButton = document.getElementById('close-modal');
+                closeModalButton.addEventListener('click', function () {
+                    trailerModal.style.display = 'none';
+                    trailerContainer.innerHTML = '<button id="close-modal">Close</button>'; // Clear the trailer content and reset close button
+                });
+            } else {
+                console.error('Trailer container or modal not found in the DOM.');
+            }
+        }
+
+        function saveTrailerToDb(movieTitle, trailerUrl) {
+            fetch("http://127.0.0.1:5000/save_trailer", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    trailer_url: trailerUrl,
+                    movie_title: movieTitle,
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        console.log('Trailer saved successfully!');
+                    } else {
+                        console.error('Failed to save trailer');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error saving trailer:', error);
+                });
+        }
+    });
+
+</script>
+</body>
+
+</html>

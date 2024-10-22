@@ -1,4 +1,9 @@
-Flask
-Flask-PyMongo
-python-dotenv
 gunicorn
+Flask==2.3.2
+flask_pymongo==2.3.0
+flask_cors==3.0.10
+PyJWT==2.8.0
+requests==2.31.0
+python-dotenv==1.0.0
+Werkzeug==2.3.6
+setuptools==68.0.0

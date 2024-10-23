@@ -120,7 +120,13 @@ Link: [https://drive.google.com/file/d/1oDcRZhvMNxk9K7TBFchf7LP0ENWiZFgL/view?us
 
 ## 📸 Screenshots
 
-1. ![Dashboard](https://github.com/user-attachments/assets/25c9e7b3-3d64-4932-a73b-9622f8b51df9)
+1. ![Dashboard](https://github.com/user-attachments/assets/25c9e7b3-3d64-4932-a73b-9622f8b51df9)![work1](https://github.com/user-attachments/assets/28f7565f-509a-4c2d-a4a1-c9cb5b5627c7)
+![work6](https://github.com/user-attachments/assets/bdd19a64-aa3a-4929-aee1-3d69c66176a7)
+![work5](https://github.com/user-attachments/assets/b3a98ff6-5157-49f6-bb4a-3f0532733ca6)
+![work4](https://github.com/user-attachments/assets/c81844a0-6680-45cb-af2d-fd20c7ffcbdc)
+![work3](https://github.com/user-attachments/assets/59845906-29ba-4264-afa1-b240340bfa5d)
+![work2](https://github.com/user-attachments/assets/ba5ad3cc-b5af-4c95-8f8e-f7d20f2b930d)
+
 2. ![Search Movies](https://github.com/user-attachments/assets/7daf4b5a-d762-452e-a02f-f6ab6d6497b2)
 3. ![Movie Details](https://github.com/user-attachments/assets/48016d28-cff9-4d1a-a17a-36c8d265cbed)
 4. ![Favorites](https://github.com/user-attachments/assets/2bd46a6d-a83b-40e8-9f95-475c6cecd932)

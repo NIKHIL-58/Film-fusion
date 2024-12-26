@@ -36,12 +36,12 @@ A **web application** built using **Flask**, **MongoDB**, **HTML**, **CSS**, and
 │   ├── static/          # CSS, JavaScript, and other static files
 │   ├── config.py        # Configuration settings  
 │   ├── utils.py         # Utility functions  
-│   ├── routes/          # Routes for various features  
-│   │   ├── login.py     
-│   │   ├── signup.py   
-│   │   ├── movies_search.py  
-│   │   ├── reset_password.py  
-│   │   └── favorites_movie.py  
+│   ├── routes.py          # Routes for various features  
+│   ├── login.py     
+│   ├── signup.py   
+│   ├── movies_search.py  
+│   ├── reset_password.py  
+│   └── favorites_movie.py  
 ├── uploads/             # User profile uploads  
 ├── requirements.txt     # Python dependencies  
 ├── README.md            # Documentation  
